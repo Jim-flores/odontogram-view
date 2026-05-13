@@ -1,0 +1,19 @@
+@tailwind components;
+@tailwind utilities;
+
+.ov-odontogram,
+.ov-odontogram * {
+  box-sizing: border-box;
+}
+
+.ov-odontogram {
+  color-scheme: light;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+.ov-odontogram button,
+.ov-odontogram svg,
+.ov-odontogram polygon,
+.ov-odontogram text {
+  -webkit-tap-highlight-color: transparent;
+}

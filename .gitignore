@@ -1,0 +1,32 @@
+# dependencies
+node_modules
+
+# builds
+dist
+build
+
+# cache
+.vite
+.cache
+
+# logs
+*.log
+
+# env
+.env
+.env.local
+
+# editor
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# npm/pnpm
+npm-debug.log*
+pnpm-debug.log*
+
+# local npm auth
+.npmrc
