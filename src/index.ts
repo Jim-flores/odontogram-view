@@ -1,4 +1,7 @@
-import "./lib/styles.css";
+import styles from "./lib/styles.css?inline";
+import { injectLibraryStyles } from "./lib/utils/injectStyles";
+
+injectLibraryStyles(styles);
 
 export { Odontogram } from "./lib/components/Odontogram/Odontogram";
 export type {

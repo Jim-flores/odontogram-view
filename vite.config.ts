@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ["src/lib", "src/index.ts"],
+      include: ["src/lib", "src/index.ts", "src/vite-env.d.ts"],
       insertTypesEntry: true
     })
   ],
