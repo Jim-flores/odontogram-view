@@ -9,7 +9,7 @@ type ToothProps = {
   record?: ToothRecord;
   editable: boolean;
   selectedCondition: ToothCondition;
-  size: "sm" | "md" | "lg";
+  size: "xs" | "sm" | "md" | "lg";
   onApplySurface: (tooth: string, surface: ToothSurfaceType, condition: ToothCondition) => void;
   onApplyTooth: (tooth: string, condition: ToothCondition) => void;
   onClearSurface: (tooth: string, surface: ToothSurfaceType) => void;
@@ -17,22 +17,32 @@ type ToothProps = {
 };
 
 const sizeClassMap = {
+  xs: {
+    wrapper: "ov-min-w-[56px] ov-gap-0.5",
+    label: "ov-text-[10px]",
+    svg: "ov-h-[68px] ov-w-[34px]"
+  },
   sm: {
+    wrapper: "ov-min-w-[60px] ov-gap-0.5",
+    label: "ov-text-[11px]",
+    svg: "ov-h-[116px] ov-w-[58px]"
+  },
+  md: {
     wrapper: "ov-min-w-[64px] ov-gap-0.5",
     label: "ov-text-[11px]",
     svg: "ov-h-[124px] ov-w-[62px]"
   },
-  md: {
+  lg: {
     wrapper: "ov-min-w-[74px] ov-gap-0.5",
     label: "ov-text-xs",
-    svg: "ov-h-[138px] ov-w-[98px]"
-  },
-  lg: {
-    wrapper: "ov-min-w-[84px] ov-gap-0.5",
-    label: "ov-text-sm",
-    svg: "ov-h-[154px] ov-w-[108px]"
+    svg: "ov-h-[138px] ov-w-[72px]"
   }
 } as const;
+
+// The geometry uses a narrower coordinate range than the original SVG box.
+// Tightening the viewBox removes the apparent internal padding.
+const TOOTH_VIEW_BOX = "8 10 46 114";
+const UPPER_TOOTH_TRANSFORM = "matrix(1 0 0 -1 0 134)";
 
 export const Tooth = memo(function Tooth({
   definition,
@@ -52,6 +62,7 @@ export const Tooth = memo(function Tooth({
     () => (toothConditions.length ? getConditionColor(toothConditions[0]) : "#f8fafc"),
     [toothConditions]
   );
+  const isUpperTooth = definition.arch === "upper";
 
   const accentClass = useMemo(() => {
     if (definition.type === "incisor") {
@@ -90,16 +101,50 @@ export const Tooth = memo(function Tooth({
         {definition.label}
       </span>
 
-      <svg viewBox="0 0 62 128" className={sizeClasses.svg}>
-        {geometry.rootPaths.map((root, index) => (
+      <svg viewBox={TOOTH_VIEW_BOX} className={sizeClasses.svg}>
+        <g transform={isUpperTooth ? UPPER_TOOTH_TRANSFORM : undefined}>
+          {geometry.rootPaths.map((root, index) => (
+            <path
+              key={`${definition.id}-root-${index}`}
+              d={root}
+              fill={toothFill}
+              stroke="#1f2937"
+              strokeWidth={1.4}
+              strokeLinejoin="round"
+              className={editable ? "ov-cursor-pointer ov-transition-opacity hover:ov-opacity-85" : ""}
+              onClick={editable ? handleApplyTooth : undefined}
+              onContextMenu={
+                editable
+                  ? (event) => {
+                    event.preventDefault();
+                    handleClearTooth();
+                  }
+                  : undefined
+              }
+            />
+          ))}
+
+          <path d={geometry.crownCap} fill={toothFill} stroke="#1f2937" strokeWidth={1.6} />
+
+          {geometry.surfaces.map((surface) => (
+            <ToothSurface
+              key={`${definition.id}-${surface.key}`}
+              surface={surface.key}
+              path={surface.path}
+              condition={record?.surfaces?.[surface.key]?.[0]}
+              onApply={handleApplySurface}
+              onClear={handleClearSurface}
+              disabled={!editable}
+            />
+          ))}
+
           <path
-            key={`${definition.id}-root-${index}`}
-            d={root}
-            fill={toothFill}
-            stroke="#1f2937"
-            strokeWidth={1.4}
+            d={geometry.crownOutline}
+            fill="none"
+            stroke="#0f172a"
+            strokeWidth={1.6}
             strokeLinejoin="round"
-            className={editable ? "ov-cursor-pointer ov-transition-opacity hover:ov-opacity-85" : ""}
+            className={editable ? "ov-cursor-pointer" : ""}
             onClick={editable ? handleApplyTooth : undefined}
             onContextMenu={
               editable
@@ -110,42 +155,7 @@ export const Tooth = memo(function Tooth({
                 : undefined
             }
           />
-        ))}
-
-        <path d={geometry.crownCap} fill={toothFill} stroke="#1f2937" strokeWidth={1.6} />
-
-        {geometry.surfaces.map((surface) => (
-          <ToothSurface
-            key={`${definition.id}-${surface.key}`}
-            surface={surface.key}
-            label={surface.label}
-            path={surface.path}
-            textX={surface.text.x}
-            textY={surface.text.y}
-            condition={record?.surfaces?.[surface.key]?.[0]}
-            onApply={handleApplySurface}
-            onClear={handleClearSurface}
-            disabled={!editable}
-          />
-        ))}
-
-        <path
-          d={geometry.crownOutline}
-          fill="none"
-          stroke="#0f172a"
-          strokeWidth={1.6}
-          strokeLinejoin="round"
-          className={editable ? "ov-cursor-pointer" : ""}
-          onClick={editable ? handleApplyTooth : undefined}
-          onContextMenu={
-            editable
-              ? (event) => {
-                event.preventDefault();
-                handleClearTooth();
-              }
-              : undefined
-          }
-        />
+        </g>
       </svg>
     </div>
   );

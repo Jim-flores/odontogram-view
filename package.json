@@ -17,9 +17,11 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config vite.demo.config.ts",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:demo": "vite build --config vite.demo.config.ts",
+    "preview:demo": "vite preview --config vite.demo.config.ts"
   },
   "peerDependencies": {
     "react": "^18.3.0 || ^19.0.0",

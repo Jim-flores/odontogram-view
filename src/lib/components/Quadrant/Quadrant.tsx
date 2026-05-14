@@ -8,7 +8,7 @@ type QuadrantProps = {
   records: ToothStateMap;
   editable: boolean;
   selectedCondition: ToothCondition;
-  size: "sm" | "md" | "lg";
+  size: "xs" | "sm" | "md" | "lg";
   onApplySurface: (tooth: string, surface: ToothSurface, condition: ToothCondition) => void;
   onApplyTooth: (tooth: string, condition: ToothCondition) => void;
   onClearSurface: (tooth: string, surface: ToothSurface) => void;

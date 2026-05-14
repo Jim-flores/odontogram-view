@@ -4,10 +4,7 @@ import type { ToothCondition, ToothSurface as ToothSurfaceType } from "../../typ
 
 type ToothSurfaceProps = {
   surface: ToothSurfaceType;
-  label: string;
   path: string;
-  textX: number;
-  textY: number;
   condition?: ToothCondition;
   onApply: (surface: ToothSurfaceType) => void;
   onClear: (surface: ToothSurfaceType) => void;
@@ -16,10 +13,7 @@ type ToothSurfaceProps = {
 
 export const ToothSurface = memo(function ToothSurface({
   surface,
-  label,
   path,
-  textX,
-  textY,
   condition,
   onApply,
   onClear,
@@ -44,14 +38,6 @@ export const ToothSurface = memo(function ToothSurface({
               }
         }
       />
-      <text
-        x={textX}
-        y={textY}
-        textAnchor="middle"
-        className="ov-pointer-events-none ov-select-none ov-fill-slate-700 ov-text-[10px] ov-font-semibold"
-      >
-        {label}
-      </text>
     </g>
   );
 });

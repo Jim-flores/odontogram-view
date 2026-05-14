@@ -31,7 +31,7 @@ export function DemoApp() {
           dentition="mixed"
           selectedCondition={selectedCondition}
           onSelectedConditionChange={setSelectedCondition}
-          size="sm"
+          size="xs"
         />
 
         <section className="ov-grid ov-gap-4 lg:ov-grid-cols-[1.25fr_0.75fr]">

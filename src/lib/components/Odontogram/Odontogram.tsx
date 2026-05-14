@@ -26,7 +26,7 @@ export const Odontogram = memo(function Odontogram({
   selectedCondition,
   onSelectedConditionChange,
   editable = true,
-  size = "md",
+  size = "sm",
   className,
   theme
 }: OdontogramProps) {

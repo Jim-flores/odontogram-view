@@ -69,7 +69,7 @@ export type OdontogramProps = {
   selectedCondition?: ToothCondition;
   onSelectedConditionChange?: (condition: ToothCondition) => void;
   editable?: boolean;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   className?: string;
   theme?: OdontogramTheme;
 };
