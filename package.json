@@ -1,6 +1,6 @@
 {
   "name": "odontogram-view",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Reusable React odontogram component library for dental systems.",
   "type": "module",
   "main": "./dist/index.cjs",
