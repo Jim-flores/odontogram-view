@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="tooth-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#dff3f7" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0f766e" />
+  <path
+    d="M20 17
+       Q32 8 44 17
+       Q50 23 47 34
+       Q45 42 39 46
+       Q37 48 36 54
+       Q35 58 32 58
+       Q29 58 28 54
+       Q27 48 25 46
+       Q19 42 17 34
+       Q14 23 20 17 Z"
+    fill="url(#tooth-fill)"
+    stroke="#c7e7ee"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+</svg>
